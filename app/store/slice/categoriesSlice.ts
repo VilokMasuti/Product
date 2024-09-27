@@ -29,8 +29,7 @@ const categoriesSlice = createSlice({
     fetchCategoriesStart(state) {
       state.status = 'loading'
     },
-    fetchCategoriesSuccess(state, action: PayloadAction<Category[]>) {
-      // Change string[] to Category[]
+    fetchCategoriesSuccess(state, action: PayloadAction<string[]>) {
       state.status = 'succeeded'
       state.items = action.payload
     },
@@ -52,16 +51,7 @@ export const fetchCategories = () => async (dispatch: AppDispatch) => {
     dispatch(fetchCategoriesStart())
     const response = await fetch('https://dummyjson.com/products/categories')
     const data = await response.json()
-
-    // Assuming the API returns a list of categories,
-    // you may need to map the data to match your Category type
-    const categories: Category[] = data.map((item: any, index: number) => ({
-      id: index.toString(), // Use a unique ID; this is just a placeholder
-      slug: item, // Assuming the item itself can serve as a slug
-      name: item, // If the API returns a name for the category
-    }))
-
-    dispatch(fetchCategoriesSuccess(categories))
+    dispatch(fetchCategoriesSuccess(data))
   } catch (error) {
     dispatch(fetchCategoriesFailure(error.message))
   }
