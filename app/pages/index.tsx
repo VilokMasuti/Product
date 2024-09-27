@@ -76,6 +76,7 @@ export default function Home() {
     setSkip((prevSkip) => prevSkip + 10)
   }
 
+
   return (
     <div className="min-h-screen   bg-stone-100 shadow-2xl ">
 
