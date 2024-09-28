@@ -4,9 +4,9 @@ import { AppDispatch } from '../store'
 
 // Define the shape of a single category
 interface Category {
-  id: string // or number, depending on your data
-  slug: string // if applicable
-  name: string // assuming the API returns a name for the category
+  id: string
+  slug: string
+  name: string
 }
 
 // Update the state to hold an array of categories
@@ -31,7 +31,12 @@ const categoriesSlice = createSlice({
     },
     fetchCategoriesSuccess(state, action: PayloadAction<string[]>) {
       state.status = 'succeeded'
-      state.items = action.payload
+      // Map the strings to Category objects
+      state.items = action.payload.map((name, index) => ({
+        id: index.toString(),
+        slug: name.toLowerCase().replace(/\s+/g, '-'), // create a slug from name
+        name,
+      }))
     },
     fetchCategoriesFailure(state, action: PayloadAction<string>) {
       state.status = 'failed'
