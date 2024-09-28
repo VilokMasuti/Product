@@ -58,7 +58,11 @@ export const fetchCategories = () => async (dispatch: AppDispatch) => {
     const data = await response.json()
     dispatch(fetchCategoriesSuccess(data))
   } catch (error) {
-    dispatch(fetchCategoriesFailure(error.message))
+    if (error instanceof Error) {
+      dispatch(fetchCategoriesFailure(error.message))
+    } else {
+      dispatch(fetchCategoriesFailure('Unknown error occurred'))
+    }
   }
 }
 

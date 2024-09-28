@@ -81,7 +81,11 @@ export const fetchProducts =
       const data = await response.json()
       dispatch(fetchProductsSuccess(data))
     } catch (error) {
-      dispatch(fetchProductsFailure(error.message))
+      if (error instanceof Error) {
+        dispatch(fetchProductsFailure(error.message))
+      } else {
+        dispatch(fetchProductsFailure('Unknown error occurred'))
+      }
     }
   }
 
