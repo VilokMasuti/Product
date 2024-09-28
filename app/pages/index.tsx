@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { motion } from "framer-motion"
+import Image from 'next/image'
 
 
 export default function Home() {
@@ -148,8 +149,10 @@ export default function Home() {
                 transition={{ duration: 0.3 }}
               >
                 <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                  <img
+                  <Image
                     src={product.thumbnail}
+                    width={200}
+                    height={200}
                     alt={product.title}
                     className="w-full h-48 object-cover"
                   />
